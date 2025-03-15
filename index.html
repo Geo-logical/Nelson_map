@@ -11,7 +11,7 @@
         <style>
         #map {
             width: 100%;
-            height: 100%; /*100 percent of view height*/
+            height: 95%; /*100 percent of view height*/
             position: relative;
         }
         html, body {
@@ -54,6 +54,7 @@
         <script src="js/labels.js"></script>
         <script src="data/Transpo_3.js"></script>
         <script src="data/Nelson_OSMTrails_JS_0.js"></script>
+        <script src="data/Kaiteriteri_trails_js.js"></script>        
         <script src="data/Nelson_oneway_trails_2.js"></script>
         <script src="data/waterway_river_4.js"></script>
         <script src="data/Nelson_attractions_5.js"></script>
@@ -143,6 +144,202 @@
         layer_OSMStandard_2;
         map.addLayer(layer_OSMStandard_2);
         
+        function pop_Kaiteriteri_trails_js(feature, layer) {
+    var popupContent = '<table>\
+            <tr>\
+                <th scope="row">name</th>\
+                <td>' + (feature.properties['name'] !== null ? autolinker.link(String(feature.properties['name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+            </tr>\
+                <th scope="row">MTB Scale</th>\
+                <td colspan="2">' + (feature.properties['mtb:scale'] !== null ? autolinker.link(String(feature.properties['mtb:scale']).replace(/'/g, '\'').toLocaleString()) : 'N/A') + '</td>\
+            </tr>\
+            <tr>\
+                <th scope="row">surface</th>\
+                <td class="visible-with-data" id="surface">' + (feature.properties['surface'] !== null ? autolinker.link(String(feature.properties['surface']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+            </tr>\
+            <tr>\
+                <th scope="row">Type</th>\
+                <td colspan="2">' + (feature.properties['highway'] !== null ? autolinker.link(String(feature.properties['highway']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+            </tr>\
+        </table>';
+    layer.bindPopup(popupContent, {maxHeight: 400});
+    }
+
+    function style_Kaiteriteri_trails_js_0(feature) {
+    switch(String(feature.properties['surface'])) {
+        case 'asphalt':
+            return {
+        pane: 'pane_Kaiteriteri_trails_js',
+        opacity: 1,
+        color: 'rgba(38,21,3,1.0)',
+        dashArray: '',
+        lineCap: 'square',
+        lineJoin: 'bevel',
+        weight: 3.0,
+        fillOpacity: 0,
+        interactive: true,
+    }
+            break;
+        case 'compacted':
+            return {
+        pane: 'pane_Kaiteriteri_trails_js',
+        opacity: 1,
+        color: 'rgba(28,204,217,1.0)',
+        dashArray: '',
+        lineCap: 'square',
+        lineJoin: 'bevel',
+        weight: 3.0,
+        fillOpacity: 0,
+        interactive: true,
+    }
+            break;
+        case 'concrete':
+            return {
+        pane: 'pane_Kaiteriteri_trails_js',
+        opacity: 1,
+        color: 'rgba(38,21,3,1.0)',
+        dashArray: '',
+        lineCap: 'square',
+        lineJoin: 'bevel',
+        weight: 3.0,
+        fillOpacity: 0,
+        interactive: true,
+    }
+            break;
+        case 'dirt':
+            return {
+        pane: 'pane_Kaiteriteri_trails_js',
+        opacity: 1,
+        color: 'rgba(28,204,217,1.0)',
+        dashArray: '',
+        lineCap: 'square',
+        lineJoin: 'bevel',
+        weight: 3.0,
+        fillOpacity: 0,
+        interactive: true,
+    }
+            break;
+        case 'dirt;gravel':
+            return {
+        pane: 'pane_Kaiteriteri_trails_js',
+        opacity: 1,
+        color: 'rgba(156,203,14,1.0)',
+        dashArray: '',
+        lineCap: 'square',
+        lineJoin: 'bevel',
+        weight: 3.0,
+        fillOpacity: 0,
+        interactive: true,
+    }
+            break;
+        case 'gravel':
+            return {
+        pane: 'pane_Kaiteriteri_trails_js',
+        opacity: 1,
+        color: 'rgba(26,196,179,1.0)',
+        dashArray: '',
+        lineCap: 'square',
+        lineJoin: 'bevel',
+        weight: 3.0,
+        fillOpacity: 0,
+        interactive: true,
+    }
+            break;
+        case 'gravel;dirt':
+            return {
+        pane: 'pane_Kaiteriteri_trails_js',
+        opacity: 1,
+        color: 'rgba(156,203,14,1.0)',
+        dashArray: '',
+        lineCap: 'square',
+        lineJoin: 'bevel',
+        weight: 3.0,
+        fillOpacity: 0,
+        interactive: true,
+    }
+            break;
+        case 'ground':
+            return {
+        pane: 'pane_Kaiteriteri_trails_js',
+        opacity: 1,
+        color: 'rgba(202,145,47,1.0)',
+        dashArray: '',
+        lineCap: 'square',
+        lineJoin: 'bevel',
+        weight: 3.0,
+        fillOpacity: 0,
+        interactive: true,
+    }
+            break;
+        case 'paved':
+            return {
+        pane: 'pane_Kaiteriteri_trails_js',
+        opacity: 1,
+        color: 'rgba(38,21,3,1.0)',
+        dashArray: '',
+        lineCap: 'square',
+        lineJoin: 'bevel',
+        weight: 3.0,
+        fillOpacity: 0,
+        interactive: true,
+    }
+            break;
+        case 'unpaved':
+            return {
+        pane: 'pane_Kaiteriteri_trails_js',
+        opacity: 1,
+        color: 'rgba(63,207,72,1.0)',
+        dashArray: '',
+        lineCap: 'square',
+        lineJoin: 'bevel',
+        weight: 3.0,
+        fillOpacity: 0,
+        interactive: true,
+    }
+            break;
+        case 'wood':
+            return {
+        pane: 'pane_Kaiteriteri_trails_js',
+        opacity: 1,
+        color: 'rgba(145,7,45,1.0)',
+        dashArray: '',
+        lineCap: 'square',
+        lineJoin: 'bevel',
+        weight: 3.0,
+        fillOpacity: 0,
+        interactive: true,
+    }
+            break;
+        default:
+            return {
+        pane: 'pane_Kaiteriteri_trails_js',
+        opacity: 1,
+        color: 'rgba(17, 187, 20, 0.95)',
+        dashArray: '',
+        lineCap: 'square',
+        lineJoin: 'bevel',
+        weight: 3.0,
+        fillOpacity: 0,
+        interactive: true,
+    }
+            break;
+    }
+}
+map.createPane('pane_Kaiteriteri_trails_js');
+map.getPane('pane_Kaiteriteri_trails_js').style.zIndex = 406;
+map.getPane('pane_Kaiteriteri_trails_js').style['mix-blend-mode'] = 'normal';
+var layer_Kaiteriteri_trails_js = new L.geoJson(json_Kaiteriteri_trails_js, {
+    attribution: '',
+    interactive: true,
+    dataVar: 'json_Kaiteriteri_trails_js',
+    layerName: 'layer_Kaiteriteri_trails_js',
+    pane: 'pane_Kaiteriteri_trails_js',
+    onEachFeature: pop_Kaiteriteri_trails_js,
+    style: style_Kaiteriteri_trails_js_0,
+});
+bounds_group.addLayer(layer_Kaiteriteri_trails_js);
+map.addLayer(layer_Kaiteriteri_trails_js);
+
         
         function pop_Nelson_OSMTrails_JS_0(feature, layer) {
             var popupContent = '<table>\
@@ -318,7 +515,7 @@
                     return {
                 pane: 'pane_Nelson_OSMTrails_JS_0',
                 opacity: 1,
-                color: 'rgba(96,12,134,1.0)',
+                color: 'rgba(17, 187, 20, 0.95)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
@@ -423,7 +620,7 @@
                 lineCap: 'square',
                 lineJoin: 'bevel',
                 weight: 3,
-                fillOpacity: 80,
+                fillOpacity: 0,
                 interactive: true,
             }
                     break;
@@ -560,11 +757,11 @@
             return {
                 pane: 'pane_waterway_river_4',
                 opacity: 1,
-                color: 'rgba(22,13,107,1.0)',
+                color: 'rgba(3, 1, 96, 0.6)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
-                weight: 1.5,
+                weight: 1,
                 fillOpacity: 0,
                 interactive: true,
             }
@@ -724,7 +921,7 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Nelson_trails_GPX_6');
+        map.createPane('pane_Nelson_trails_GPX_6'); //Nelson_trails_GPX_6.js
         map.getPane('pane_Nelson_trails_GPX_6').style.zIndex = 406;
         map.getPane('pane_Nelson_trails_GPX_6').style['mix-blend-mode'] = 'normal';
         var layer_Nelson_trails_GPX_6 = new L.geoJson(json_Nelson_trails_GPX_6, {
@@ -833,8 +1030,10 @@ document.getElementById('KaiteriteriTrails').addEventListener('change', function
 document.getElementById('Trail Data').addEventListener('change', function (e) {
   if (e.target.checked) {
     layer_Nelson_OSMTrails_JS_0.addTo(map);
+    layer_Kaiteriteri_trails_js.addTo(map);
   } else {
     map.removeLayer(layer_Nelson_OSMTrails_JS_0);
+    map.removeLayer(layer_Kaiteriteri_trails_js);
   }
 });
 document.getElementById('Transpo').addEventListener('change', function (e) {
