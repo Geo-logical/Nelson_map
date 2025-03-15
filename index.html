@@ -62,7 +62,7 @@
         <script src="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.0/dist/leaflet.timedimension.min.js"></script>
         <script>
 
-        var timeInterval = "2025-03-25/2025-04-02";
+        //var timeInterval = "2025-03-25/2025-04-02";
         var highlightLayer;
         function highlightFeature(e) {
             highlightLayer = e.target;
@@ -83,7 +83,7 @@
         var map = L.map('map', {
             zoomControl:true, 
             maxZoom:20, 
-            minZoom:8}).setView([-41.25, 173.25], 13, 
+            minZoom:8}).setView([-41.31, 173.24], 12, 
             //timeDimension: true,
             //timeDimensionOptions: {timeInterval: timeInterval, period: "P1D"},
             //timeDimensionControl: true,
@@ -715,7 +715,7 @@
             return {
                 pane: 'pane_Nelson_trails_GPX_6',
                 opacity: 1,
-                color: 'rgb(208, 90, 6)',
+                color: 'rgba(208, 90, 6, 0.85)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
@@ -755,7 +755,7 @@
             return {
                 pane: 'pane_Kaiteriteri_trails_GPX_7',
                 opacity: 1,
-                color: 'rgba( 140, 140, 25, 0.6 )',
+                color: 'rgba(208, 90, 6, 0.8)',
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
@@ -802,7 +802,7 @@ var LayerLegend = L.Control.extend({
       '<label><input type="checkbox" id="Transportation"> Transpo</label><br>' +
       '<label><input type="checkbox" id="Trail Data" checked> Trail Data</label><br>' +
       '<label><input type="checkbox" id="NelsonTrails"> Nelson GPX tracks</label><br>' +
-      '<label><input type="checkbox" id="KaiteriteriTrails"> Kaiteriteri GPX tracks</label><br>' +
+      '<label><input type="checkbox" id="KaiteriteriTrails" checked> Kaiteriteri GPX tracks</label><br>' +
       '</form>';
       //0div.style.backgroundColor = 'lightblue';
     // Prevent clicks on the legend from propagating to the map.
