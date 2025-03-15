@@ -421,7 +421,7 @@
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
-                weight: 5.0,
+                weight: 2.5,
                 fillOpacity: 0,
                 interactive: true,
             }
@@ -563,7 +563,7 @@
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
-                weight: 1.0,
+                weight: 1.5,
                 fillOpacity: 0,
                 interactive: true,
             }
@@ -739,7 +739,7 @@
             style: style_Nelson_trails_GPX_6_0,
         });
         bounds_group.addLayer(layer_Nelson_trails_GPX_6);
-        map.addLayer(layer_Nelson_trails_GPX_6);
+        //map.addLayer(layer_Nelson_trails_GPX_6);
         function pop_Kaiteriteri_trails_GPX_7(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
@@ -801,9 +801,9 @@ var LayerLegend = L.Control.extend({
     
     // Insert HTML for the legend with checkboxes.
     container.innerHTML = '<form>' +
-      '<label><input type="checkbox" id="Transpo"> Transpo</label><br>' +
+      '<label><input type="checkbox" id="Transportation"> Transpo</label><br>' +
       '<label><input type="checkbox" id="Trail Data" checked> Trail Data</label><br>' +
-      '<label><input type="checkbox" id="NelsonTrails" checked> Nelson GPX tracks</label><br>' +
+      '<label><input type="checkbox" id="NelsonTrails"> Nelson GPX tracks</label><br>' +
       '<label><input type="checkbox" id="KaiteriteriTrails"> Kaiteriteri GPX tracks</label><br>' +
       '</form>';
       //0div.style.backgroundColor = 'lightblue';
