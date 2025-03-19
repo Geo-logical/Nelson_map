@@ -59,6 +59,7 @@
         <script src="data/waterway_river_4.js"></script>
         <script src="data/Nelson_attractions_5.js"></script>
         <script src="data/Nelson_trails_GPX_6.js"></script>
+        <script src="data/Gorge_trails_GPX_1.js"></script>
         <script src="data/Kaiteriteri_trails_GPX_7.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.0/dist/leaflet.timedimension.min.js"></script>
         <script>
@@ -619,20 +620,7 @@ map.addLayer(layer_Kaiteriteri_trails_js);
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
-                weight: 3,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
-                case 'detour':
-                    return {
-                pane: 'pane_Transpo_3',
-                opacity: 1,
-                color: 'rgba(202,37,106,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 1.0,
+                weight: 2,
                 fillOpacity: 0,
                 interactive: true,
             }
@@ -689,19 +677,6 @@ map.addLayer(layer_Kaiteriteri_trails_js);
                 interactive: true,
             }
                     break;
-                case 'road':
-                    return {
-                pane: 'pane_Transpo_3',
-                opacity: 1,
-                color: 'rgba(47,117,214,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 3.0,
-                fillOpacity: 0,
-                interactive: true,
-            }
-                    break;
                 default:
                     return {
                 pane: 'pane_Transpo_3',
@@ -710,7 +685,7 @@ map.addLayer(layer_Kaiteriteri_trails_js);
                 dashArray: '',
                 lineCap: 'square',
                 lineJoin: 'bevel',
-                weight: 1.0,
+                weight: 0.0,
                 fillOpacity: 0,
                 interactive: true,
             }
@@ -976,6 +951,50 @@ map.addLayer(layer_Kaiteriteri_trails_js);
         bounds_group.addLayer(layer_Kaiteriteri_trails_GPX_7);
         map.addLayer(layer_Kaiteriteri_trails_GPX_7);
         setBounds();
+
+        function pop_Gorge_trails_GPX_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">name</th>\
+                        <td>' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['type'] !== null ? autolinker.link(feature.properties['type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+        function style_Gorge_trails_GPX_1() {
+            return {
+                pane: 'pane_Gorge_trails_GPX_1',
+                opacity: 1,
+                color: 'rgba(208, 90, 6, 0.8)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Gorge_trails_GPX_1'); //Nelson_trails_GPX_6.js
+        map.getPane('pane_Gorge_trails_GPX_1').style.zIndex = 409;
+        map.getPane('pane_Gorge_trails_GPX_1').style['mix-blend-mode'] = 'normal';
+        var layer_Gorge_trails_GPX_1 = new L.geoJson(json_Gorge_trails_GPX_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Gorge_trails_GPX_1',
+            layerName: 'layer_Gorge_trails_GPX_1',
+            pane: 'pane_Gorge_trails_GPX_1',
+            onEachFeature: pop_Gorge_trails_GPX_1,
+            style: style_Gorge_trails_GPX_1,
+        });
+        bounds_group.addLayer(layer_Gorge_trails_GPX_1);
+        map.addLayer(layer_Gorge_trails_GPX_1);
+
+
+        
+        
                 // Create a basemaps object.
     var baseMaps = {
     "OpenStreetMap": layer_OSMStandard_2,
@@ -987,21 +1006,39 @@ map.addLayer(layer_Kaiteriteri_trails_js);
     
 // Create a custom control for toggling layers.
 var LayerLegend = L.Control.extend({
-  options: {
-    position: 'topright' // Position it at the bottom right.
+    options: {
+    position: 'topright',  // Position the control at the top right of the map
+    title: 'Layer Legend', // An optional title for the control
+    backgroundColor: '#ffffff', // Default background color
+    borderColor: '#ccc'         // Default border color
   },
   onAdd: function (map) {
     // Create a container div with a class name.
     var container = L.DomUtil.create('div', 'layer-legend');
+    container.style.backgroundColor = 'rgba(208, 90, 6, 0.8)';
+    container.style.border = '3px solid ' + 'rgba(208, 90, 6, 0.5)';
+    container.style.borderRadius = '10px';
+    container.style.padding = '7px';
+    container.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.3)';
+    container.style.fontFamily = 'Helvetica, Arial, sans-serif';
+    container.style.fontSize = '14px';
+    container.style.color = '#333';
+    container.tileLayer = '<strong>' + 'Town and Trail Layers' + '</strong>';
+
     
     // Insert HTML for the legend with checkboxes.
     container.innerHTML = '<form>' +
+      ' <label> Trails and Town Data Layers </label><br>'+
       '<label><input type="checkbox" id="Transpo" checked> Transportation</label><br>' +
       '<label><input type="checkbox" id="Trail Data" checked> Trail Data</label><br>' +
       '<label><input type="checkbox" id="NelsonTrails"> Nelson GPX tracks</label><br>' +
       '<label><input type="checkbox" id="KaiteriteriTrails" checked> Kaiteriteri GPX tracks</label><br>' +
+      '<label><input type="checkbox" id="GorgeTrails" checked> Gorge GPX Tracks</label><br>' +
       '</form>';
-      //0div.style.backgroundColor = 'lightblue';
+      '<div class="legend">'
+        '<div class="legend-title" style="font-size:18px; font-weight:bold; margin-bottom:8px;">Data Legend</div>'
+
+      //div.style.backgroundColor = 'lightblue';
     // Prevent clicks on the legend from propagating to the map.
     L.DomEvent.disableClickPropagation(container);
     return container;
@@ -1041,6 +1078,13 @@ document.getElementById('Transpo').addEventListener('change', function (e) {
     layer_Transpo_3.addTo(map);
   } else {
     map.removeLayer(layer_Transpo_3);
+  }
+});
+document.getElementById('GorgeTrails').addEventListener('change', function (e) {
+  if (e.target.checked) {
+    layer_Gorge_trails_GPX_1.addTo(map);
+  } else {
+    map.removeLayer(layer_Gorge_trails_GPX_1);
   }
 });
         </script>
