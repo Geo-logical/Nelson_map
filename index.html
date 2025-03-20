@@ -10,15 +10,27 @@
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
         <style>
         #map {
-            width: 100%;
-            height: 95%; /*100 percent of view height*/
+            width: 99%;
+            height: 98%; /*100 percent of view height*/
             position: relative;
         }
+        #loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(208, 90, 6, 0.8);  /* semi-transparent overlay */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;  /* high z-index so it overlays the map */
+            }
         html, body {
         height: 100%;
-        margin: 60;
+        margin: 5;
         padding: 0;
-        background-color: teal; 
+        background-color:  rgba(208, 90, 6, 0.8); /*rgba(2, 43, 43, 0.719); rgba(208, 90, 6, 0.8)*/
 
         }
             /* Legend styles */
@@ -42,6 +54,8 @@
     </head>
     <body>
         <div id="map">
+        <div id="loading">
+            <img src="css/images/Wheel.gif" alt="Loading..." />
         </div>
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
@@ -85,7 +99,7 @@
         var map = L.map('map', {
             zoomControl:true, 
             maxZoom:20, 
-            minZoom:8}).setView([-41.31, 173.24], 12, 
+            minZoom:4}).setView([-41.31, 173.24], 12, 
             //timeDimension: true,
             //timeDimensionOptions: {timeInterval: timeInterval, period: "P1D"},
             //timeDimensionControl: true,
@@ -117,6 +131,13 @@
         });
         layer_GoogleHybrid_0;
         //map.addLayer(layer_GoogleHybrid_0);
+        layer_GoogleHybrid_0.on('load', function() {
+            var loadingEl = document.getElementById('loading');
+            if (loadingEl) {
+                loadingEl.style.display = 'none';  // Or remove it entirely with loadingEl.remove();
+                }
+            });
+        
         map.createPane('pane_OpenTopoMap_1');
         map.getPane('pane_OpenTopoMap_1').style.zIndex = 401;
         var layer_OpenTopoMap_1 = L.tileLayer('https://a.tile.opentopomap.org/{z}/{x}/{y}.png', {
@@ -130,6 +151,13 @@
         });
         layer_OpenTopoMap_1;
         //map.addLayer(layer_OpenTopoMap_1);
+        layer_OpenTopoMap_1.on('load', function() {
+        var loadingEl = document.getElementById('loading');
+        if (loadingEl) {
+            loadingEl.style.display = 'none';  // Or remove it entirely with loadingEl.remove();
+            }
+        });
+
         map.createPane('pane_OSMStandard_2');
         map.getPane('pane_OSMStandard_2').style.zIndex = 402;
         var layer_OSMStandard_2 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -141,10 +169,21 @@
             minNativeZoom: 0,
             maxNativeZoom: 19
         });
+
         
         layer_OSMStandard_2;
         map.addLayer(layer_OSMStandard_2);
-        
+
+        // When the tile layer loads, hide the loading overlay
+        layer_OSMStandard_2.on('load', function() {
+            var loadingEl = document.getElementById('loading');
+            if (loadingEl) {
+                loadingEl.style.display = 'none';  // Or remove it entirely with loadingEl.remove();
+                }
+            });
+
+
+
         function pop_Kaiteriteri_trails_js(feature, layer) {
     var popupContent = '<table>\
             <tr>\
